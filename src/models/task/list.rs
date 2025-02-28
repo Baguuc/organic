@@ -1,7 +1,9 @@
+use serde::Deserialize;
 use sqlx::{query, query_as, PgConnection};
 
 use super::Task;
 
+#[derive(Deserialize)]
 pub struct TaskListQuery {
     with_id: Option<i32>,
     with_limit: Option<i32>,
