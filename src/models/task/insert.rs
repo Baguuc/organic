@@ -1,6 +1,6 @@
 use sqlx::{query, query_as, PgConnection};
 
-use super::Task;
+use super::{fetch::TaskFetchQuery, Task};
 
 pub struct TaskInsertQuery {
     title: String,
@@ -34,14 +34,12 @@ impl TaskInsertQuery {
         let result: (i32,) = query_as(sql)
             .bind(&self.title)
             .bind(&self.description)
-            .fetch_one(db_conn)
+            .fetch_one(&mut *db_conn)
             .await?;
-
-        let task = Task {
-            id: result.0,
-            title: self.title.to_string(),
-            description: self.description.to_string()
-        };
+        
+        let task = TaskFetchQuery::new(result.0)
+            .execute(db_conn)
+            .await?;
 
         return Ok(task);
     }

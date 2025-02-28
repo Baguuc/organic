@@ -30,7 +30,9 @@ impl TaskListQuery {
             SELECT 
                 id,
                 title,
-                description
+                description,
+                ordr,
+                done
             FROM
                 tasks
             WHERE
