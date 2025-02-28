@@ -1,7 +1,9 @@
+use serde::Deserialize;
 use sqlx::{query, query_as, PgConnection};
 
 use super::{fetch::TaskFetchQuery, Task};
 
+#[derive(Deserialize)]
 pub struct TaskInsertQuery {
     title: String,
     description: String
