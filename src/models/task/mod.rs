@@ -1,4 +1,5 @@
 pub mod list;
+pub mod fetch;
 pub mod insert;
 pub mod delete;
 
